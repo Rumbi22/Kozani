@@ -1,0 +1,303 @@
+/* =========================
+   Health Companion — UI Theme
+   Chic + Nurturing (Pink)
+   — CSS-only; preserves selectors used by app.js
+   ========================= */
+
+/* ---------- Design tokens ---------- */
+:root{
+  /* Core brand (keep your original) */
+  --brand: #ef4878;           /* used for links/accents */
+  --brand-strong: #d61c62;    /* solid button tone (AA vs white) */
+  --brand-stronger: #c81759;  /* deeper tone for gradients/active */
+
+  /* Tonal pinks for soft surfaces */
+  --pink-50:  #fff6f9;  /* very light surface */
+  --pink-100: #fdebf2;  /* hover/chip bg */
+  --pink-200: #f9d8e6;  /* subtle borders */
+
+  /* Neutrals */
+  --bg: #ffffff;        /* app background */
+  --surface: #fafafa;   /* panel/bubble base */
+  --text: #1f2937;      /* main text */
+  --muted: #4b5563;     /* secondary text */
+  --border: #e7e7ea;    /* default border */
+
+  /* Semantic */
+  --alert: #b10e1e;     /* error/warn text or border */
+
+  /* Chat roles (kept from your original names for safety) */
+  --header-bg: #f4b8c9; /* soft header wash */
+  --bot-bg: #ffffff;
+  --bot-border: #eee;
+  --user-bg: var(--pink-50);  /* softened from solid pink */
+  --user-ink: var(--text);
+
+  /* Radii, spacing, shadows */
+  --radius: 14px;
+  --gap: 12px;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.04);
+  --shadow-2: 0 6px 16px rgba(0,0,0,.08);
+}
+
+/* ---------- Base / Reset ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Helpful utility */
+.visually-hidden {
+  position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* ---------- App layout (keep existing names) ---------- */
+.app {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--gap);
+  min-height: 100dvh;
+}
+
+/* Header — softer, nurturing */
+header {
+  background: linear-gradient(180deg, var(--pink-100), #fff);
+  color: var(--text);
+  padding: 14px 20px;
+  border: 1px solid var(--pink-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*---------------Progress bar ----------------*/
+
+#model-status {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+#progress-container {
+  width: 100%;
+  height: 6px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#model-progress {
+  height: 100%;
+  width: 0%;
+  background: #4caf50; /* or your accent color */
+  transition: width 0.2s ease;
+}
+
+
+
+/* ---------- Chat area ---------- */
+.chat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar (subtle) */
+.chat::-webkit-scrollbar { width: 10px; }
+.chat::-webkit-scrollbar-thumb {
+  background: #e9e9ed;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* ---------- Messages ---------- */
+.msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: calc(var(--radius) + 6px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+  background: #fff;
+  color: var(--text);
+  overflow-wrap: anywhere;    /* long URLs safe */
+  word-break: break-word;
+}
+
+/* Bot bubble */
+.msg.bot {
+  background: var(--bot-bg);
+  border-color: var(--bot-border);
+  align-self: flex-start;
+}
+
+/* User bubble (now light, calm pink with dark text) */
+.msg.user {
+  background: var(--user-bg);
+  border-color: var(--pink-200);
+  color: var(--user-ink);
+  align-self: flex-end;
+}
+
+/* Optional semantic bubbles (safe additions) */
+.msg.notice {
+  background: #fffef5;
+  border-color: #f3e7aa;
+}
+.msg.error {
+  background: #fff6f6;
+  border-color: #ffd3d3;
+  color: var(--alert);
+}
+
+/* Rich content inside messages */
+.msg p { margin: 0 0 8px; }
+.msg p:last-child { margin-bottom: 0; }
+.msg a { color: var(--brand); text-underline-offset: 2px; }
+.msg code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: .95em;
+  background: #f6f7f9;
+  border: 1px solid #ececf1;
+  border-radius: 8px;
+  padding: 0 6px;
+}
+.msg pre {
+  background: #f6f7f9; border: 1px solid #ececf1; border-radius: 10px;
+  padding: 12px; overflow: auto;
+}
+
+/* ---------- Composer (input row) ---------- */
+.composer {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;   /* text area + send btn */
+  gap: 10px;
+}
+
+/* Text input / textarea */
+#msg {
+  resize: none;
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  outline: none;
+  background: #fff;
+}
+#msg::placeholder { color: #97a0ab; }
+
+/* ---------- Buttons ---------- */
+button {
+  height: 44px;               /* comfy target */
+  min-width: 44px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5ch;
+}
+
+/* Primary send button (keeps #send id) */
+#send{
+  padding: 0 16px;
+  color: #fff;
+  background: linear-gradient(180deg, var(--brand-strong), var(--brand-stronger));
+  box-shadow: 0 6px 16px rgba(200,23,89,.18), 0 2px 4px rgba(0,0,0,.04);
+}
+#send:hover{ filter: brightness(1.03); }
+#send:active{ transform: translateY(1px); }
+
+/* Secondary/ghost buttons if you use them */
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+button.ghost:hover { background: #f8f8fa; }
+
+/* ---------- Focus & accessibility ---------- */
+:where(button, .chip, a, input, textarea):focus-visible{
+  outline: 3px solid color-mix(in oklab, var(--brand-strong) 60%, #fff);
+  outline-offset: 2px;
+}
+
+/* ---------- Topic chips (keep existing .chip) ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip{
+  background: color-mix(in srgb, var(--pink-50) 80%, #fff);
+  border: 1px solid color-mix(in srgb, var(--pink-200) 70%, #ddd);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 14px;
+  line-height: 1;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: .5ch;
+  box-shadow: none;
+}
+.chip:hover{ background: var(--pink-100); }
+.chip:active{ transform: translateY(1px); }
+.chip[aria-selected="true"]{
+  background: color-mix(in srgb, var(--brand) 14%, #fff);
+  border-color: color-mix(in srgb, var(--brand) 40%, #ddd);
+}
+
+/* ---------- Images & media ---------- */
+img, video { max-width: 100%; height: auto; border-radius: 10px; }
+
+/* ---------- Links (outside messages) ---------- */
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Motion safety ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation:none !important; transition:none !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 480px){
+  .app { padding: 12px; }
+  .chat { padding: 10px; gap: 12px; }
+  .msg { max-width: 90%; }
+  header { padding: 12px 16px; }
+}
+
+/* ---------- Optional helper: system badges ---------- */
+.badge {
+  display:inline-block; padding: 4px 10px; border-radius: 999px;
+  font-size: 12px; line-height: 1; border:1px solid var(--border); background:#fff;
+}
+.badge.pink { background: var(--pink-50); border-color: var(--pink-200); }

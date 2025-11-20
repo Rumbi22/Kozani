@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Perinatal Companion (MVP)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>Kozani</header>
+
+      <div id="model-status">
+        <div id="status"></div>
+        <div id="progress-container">
+          <div id="model-progress"></div>
+        </div>
+      </div>
+
+
+      <section id="chat" class="chat">
+        <!-- messages appear here -->
+      </section>
+
+
+      <section id="chips" class="chips">
+      </section>
+   
+
+      <section id="websearch" class="chips" style="display:none">
+
+        <button id="doSearch" class="chip">Search trusted sources</button>
+      </section>
+
+
+
+      <form id="composer" class="composer">
+        <input id="msg" placeholder="Type a message…" autocomplete="off" />
+        <button id="send">Send</button>
+      </form>
+    </main>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
